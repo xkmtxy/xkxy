@@ -16,7 +16,7 @@ switch ($act) {
 function GetPost($str)
 {
     if (isset($_POST[$str]) && $_POST[$str] != "") {
-        return daddslashes($_POST[$str]);
+        return $_POST[$str];
     } else {
         json(array('code' => 0, 'msg' => $str . '参数为空！'));
     }
@@ -26,7 +26,7 @@ function GetPost($str)
 function GetGet($str)
 {
     if (isset($_GET[$str]) && $_GET[$str] != "") {
-        return daddslashes($_GET[$str]);
+        return $_GET[$str];
     } else {
         json(array('code' => 0, 'msg' => '参数为空！'));
     }
