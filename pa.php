@@ -1,5 +1,22 @@
 <?php
-$gmpass = 'xiake';
+
+$gmcode = trim($_POST['checknum']);
+error_reporting(0);
+if ($gmcode == '') {
+    $return = array(
+        'errcode' => 1,
+        'info' => 'GM码不能为空',
+    );
+    exit(json_encode($return));
+}
+
+if ($gmcode != '108b085a47dac7b39560d4bdba6ce2cf') {
+    $return = array(
+        'errcode' => 1,
+        'info' => 'GM码错误',
+    );
+    exit(json_encode($return));
+}
 
 include "../common.php";
 if ($_POST) {
@@ -8,13 +25,9 @@ if ($_POST) {
         switch ($type) {
             case 'mod':
                 $user = $_POST['user'];
-                $gm = $_POST['gm'];
                 $money = $_POST['money'];
                 $type = $_POST['type'];
                 $serverid = $_POST['ServerID'];
-                if ($gm != $gmpass) {
-                    exit("GM密码不正确 ");
-                }
                 $userinfo = $DB->get_row("SELECT * FROM cly_users WHERE user='" . $user . "' limit 1");
                 if (empty($userinfo)) {
                     exit("会员不存在");
