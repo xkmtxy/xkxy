@@ -1,4 +1,5 @@
 <?php
+include "../common.php";
 
 $gmcode = trim($_POST['checknum']);
 error_reporting(0);
@@ -18,7 +19,6 @@ if ($gmcode != '108b085a47dac7b39560d4bdba6ce2cf') {
     exit(json_encode($return));
 }
 
-include "../common.php";
 if ($_POST) {
     if ($_GET['act']) {
         $type = trim($_GET['act']);
