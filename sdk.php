@@ -4,7 +4,6 @@ header("Content-type:application/json;charset=utf-8");
 include_once("conn.php");
 
 $gmcode = trim($_POST['checknum']);
-error_reporting(0);
 if ($gmcode == '') {
     $return = array(
         'errcode' => 1,
