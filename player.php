@@ -3,16 +3,6 @@ include "../includes/common.php";
 if ($_POST) {
     if ($_POST ['type']) {
         $type = trim($_POST ['type']);
-        $goods = $DB->query("SELECT * FROM cly_lottery1 as l,cly_shop as s where l.shopid=s.id");
-        $res = array();
-        $num = 0;
-        while ($goodsinfo = $DB->fetch($goods)) {
-            for ($i = 0; $i < $goodsinfo['chance']; $i++) {
-                $res[$num] = $goodsinfo['id'];
-                $num++;
-            }
-        }
-        shuffle($res);
         switch ($type) {
             case 'qingli':
                 $flag = ":";
@@ -95,43 +85,11 @@ if ($_POST) {
                 if ($userinfo['money'] < $config['zhuanzhi']) {
                     exit("您的平台币不足");
                 }
-                money($userinfo['uid'], $config['zhuanzhi'], false);
 
                 $cmd = 'java -jar jmxc.jar "" "" "127.0.0.1" "' . $servers['port'] . '" "gm" "userId=20481" "roleId=' . $userinfo['UserID'] . '" "changeschool ' . $juese . ' ' . $zhiye . ' ' . $uid . '"';
                 exec($cmd, $out);
                 echo "转职成功";
                 break;
-            case 'zhuanzhi1':
-                $uid = $_POST['uid'];
-                $juese = $_POST['juese'];
-                $zhiye = $_POST['zhiye'];
-                if ($userinfo['money'] < $config['zhuanzhi']) {
-                    exit("您的平台币不足");
-                }
-                $dict = array(
-                    11 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    12 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    19 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    21 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    13 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    14 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    17 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    22 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    15 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    16 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    18 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    20 => [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                );
-                if (!in_array($juese, $dict[$zhiye])) {
-                    exit("非法转职");
-                }
-                money($userinfo['uid'], $config['zhuanzhi'], false);
-
-                $cmd = 'java -jar jmxc.jar "" "" "127.0.0.1" "' . $servers['port'] . '" "gm" "userId=20481" "roleId=' . $userinfo['UserID'] . '" "changeschool ' . $juese . ' ' . $zhiye . ' ' . $uid . '"';
-                exec($cmd, $out);
-                echo "转职成功";
-                break;
-
             case 'zengjia':
                 $uid = $_POST['uid'];
                 $lili = $_POST['key'];
